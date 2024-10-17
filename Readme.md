@@ -1,18 +1,51 @@
 # TAREA 3
 
-
 *Esteban Miguel Montes Adraz* - *2 DAM* - *SXE*
 ***
+
 ## 1. Descarga la imagen 'httpd' y comprueba que está en tu equipo.
+
 Para descargar la imagen httpd de apache en la versión 2.4 ejecutamos el siguiente comando
+
 ```angular2html
 docker pull httpd:2.4
 ```
 
 ## 2. Crea un contenedor con el nombre 'dam_web1'.
+
 Para crear un contenedor con este nombre hacemos lo siguiente
+
 ```angular2html
 docker run -d --name dam_web1 httpd:2.4
 ```
 
+## 3. Si quieres poder acceder desde el navegador de tu equipo, ¿que debes hacer?
+
+**Utiliza bind mount para que el directorio del apache2 'htdocs' esté montado un directorio que tu elijas.**
+
+Para poder hacer esto, empezamos creando un directorio para contener nuestro HTML
+```angular2html
+mkdir ~/mi_web
+```
+
+Luego entramos en el directorio y creamos el HTML
+```angular2html
+cd mi_web
+
+echo "<html><body><h1>Hola Mundo</h1></body></html>" > index.html
+```
+Eliminaremos el contenedor dam_web1 de antes ya que no lo hicimos con mount y lo volveremos a crear para que conecte con el directorio que creamos anteriormente
+```angular2html
+docker rm -f dam_web1
+
+docker run -d --name dam_web1 -p 8000:80 -v ~/mi-web:/usr/local/apache2/htdocs httpd
+```
+Este comando monta el directorio ```~/mi-web``` (en tu host) en ```/usr/local/apache2/htdocs``` (en el contenedor), que es donde Apache busca los archivos que debe servir.
+
+## 4. Comprobar que puedes acceder a la página desde el navegador
+
+Para entrar a la página desde el navegador pondremos esto en el buscador
+```angular2html
+http://localhost:8000
+```
 
