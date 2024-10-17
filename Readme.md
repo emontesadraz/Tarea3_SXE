@@ -29,7 +29,7 @@ mkdir ~/mi_web
 ```
 
 Luego entramos en el directorio y creamos el HTML
-```
+```bash
 cd mi_web
 
 echo "<html><body><h1>Hola Mundo</h1></body></html>" > index.html
@@ -69,4 +69,10 @@ https://localhost:9080
 (para dam_web2)
 ```
 
+## 7. Realiza modificaciones de la página y comprueba que los dos servidores 'sirven' la misma página
+
+Ambos contenedores están utilizando el mismo bind mount, así que editaremos el HTML y los cambios se reflejarán en ambos contenedores
+```bash
+echo "<html><body><h1>¡Hola Mundo Modificado!</h1></body></html>" > ~/mi-web/index.html
+```
 
